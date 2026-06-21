@@ -1,9 +1,12 @@
+import DonorDashboardHome from '@/components/dashboard/DonorTableRelated'
+import Welcome from '@/components/dashboard/Welcome'
 import React from 'react'
 
-export default function DashboardPage() {
+export default function DonorDashboardPage() {
     return (
-        <main>
-            <h1 className="text-xl mb-4">Dashboard</h1>
-        </main>
+        <div>
+            <Welcome />
+            <DonorDashboardHome condition={true} />
+        </div>
     )
 }

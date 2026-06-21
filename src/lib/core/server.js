@@ -17,7 +17,7 @@ export const serverMutation = async (url, donationData, method = 'POST') => {
 
 export const serverQuery = async (url) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/${url}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

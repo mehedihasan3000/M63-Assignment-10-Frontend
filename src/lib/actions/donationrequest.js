@@ -5,6 +5,3 @@ export const donationRequest = async (donationData) => {
     return await serverMutation("/api/create-donation-request", donationData);
 }
 
-export const getDonationRequests = async () => {
-    return await serverQuery("get-donation-requests");
-}
