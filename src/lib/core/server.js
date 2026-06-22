@@ -1,9 +1,20 @@
+import { getUserToken } from "./token";
+
+export const authHeader = async () => {
+    const token = await getUserToken();
+    const header = {
+        authorization: `Bearer ${token}`
+    }
+    return token ? header : {};
+}
+
 export const serverMutation = async (url, donationData, method = 'POST') => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
+                ... await authHeader(),
             },
             body: JSON.stringify(donationData),
         });
@@ -21,12 +32,30 @@ export const serverQuery = async (url) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                ... await authHeader(),
             },
         });
         const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error in server query:', error);
+        throw error;
+    }
+}
+
+export const serverDelete = async (url) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                ... await authHeader(),
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error in server delete:', error);
         throw error;
     }
 }

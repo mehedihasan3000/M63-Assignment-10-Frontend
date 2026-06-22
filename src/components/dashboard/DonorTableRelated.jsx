@@ -13,7 +13,8 @@ import {
     Person,
     Envelope
 } from '@gravity-ui/icons';
-import { getDonationRequests } from '@/lib/api/donations';
+import { deleteDonationRequest, getDonationRequests } from '@/lib/api/donations';
+import { updateDonationStatus } from '@/lib/actions/donationrequest';
 
 export default function DonorDashboardHome({ condition }) {
     const { data: session, isPending: sessionLoading } = authClient.useSession();
@@ -53,12 +54,8 @@ export default function DonorDashboardHome({ condition }) {
     const handleUpdateStatus = async (id, newStatus) => {
         setIsActionProcessing(true);
         try {
-            const response = await fetch(`/api/donation-requests/${id}/status`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ donationStatus: newStatus })
-            });
-            if (response.ok) {
+            const response = await updateDonationStatus(id, { donationStatus: newStatus });
+            if (response) {
                 // Optimistic UI state synchronization
                 setRequests(prev => prev.map(req =>
                     req._id?.$oid === id || req._id === id ? { ...req, donationStatus: newStatus } : req
@@ -82,10 +79,8 @@ export default function DonorDashboardHome({ condition }) {
         if (!targetRequestId) return;
         setIsActionProcessing(true);
         try {
-            const response = await fetch(`/api/donation-requests/${targetRequestId}`, {
-                method: 'DELETE'
-            });
-            if (response.ok) {
+            const response = await deleteDonationRequest(targetRequestId);
+            if (response) {
                 setIsDeleteModalOpen(false);
                 setTargetRequestId(null);
                 fetchRequests(); // Re-sync local dataset rows
@@ -248,23 +243,27 @@ export default function DonorDashboardHome({ condition }) {
                                                         >
                                                             <Eye width={14} height={14} />
                                                         </Link>
+                                                        {
+                                                            session?.user?.role === 'admin' && <>
+                                                                <Link
+                                                                    href={`/dashboard/edit-donation-request/${idString}`}
+                                                                    className="p-1.5 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg transition-colors"
+                                                                    title="Modify Registry Fields"
+                                                                >
+                                                                    <Pencil width={14} height={14} />
+                                                                </Link>
 
-                                                        <Link
-                                                            href={`/dashboard/donor/edit-donation-request/${idString}`}
-                                                            className="p-1.5 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg transition-colors"
-                                                            title="Modify Registry Fields"
-                                                        >
-                                                            <Pencil width={14} height={14} />
-                                                        </Link>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => openDeleteConfirmation(idString)}
+                                                                    className="p-1.5 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 rounded-lg transition-colors"
+                                                                    title="Delete Record Entry"
+                                                                >
+                                                                    <TrashBin width={14} height={14} />
+                                                                </button>
+                                                            </>
+                                                        }
 
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => openDeleteConfirmation(idString)}
-                                                            className="p-1.5 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 rounded-lg transition-colors"
-                                                            title="Delete Record Entry"
-                                                        >
-                                                            <TrashBin width={14} height={14} />
-                                                        </button>
                                                     </div>
                                                 </Table.Cell>
 
@@ -281,7 +280,7 @@ export default function DonorDashboardHome({ condition }) {
                         requests.length === 3 && (
                             <div className="pt-4 border-t border-slate-100 flex justify-center">
                                 <Link
-                                    href="/dashboard/donor/my-donation-requests"
+                                    href="/dashboard/my-donation-requests"
                                     className="inline-flex items-center gap-2 border border-slate-200 hover:bg-slate-50 text-slate-700 text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors shadow-sm"
                                 >
                                     View My All Requests

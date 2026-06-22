@@ -1,4 +1,3 @@
-// app/profile/page.js
 import { getUserSession } from '@/lib/core/session';
 import EditProfileForm from './EditProfileForm';
 import React from 'react';

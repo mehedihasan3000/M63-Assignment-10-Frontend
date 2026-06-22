@@ -1,4 +1,3 @@
-// app/profile/EditProfileForm.js
 'use client';
 
 import React, { useState } from 'react';
@@ -8,9 +7,10 @@ import { updateUser } from '@/lib/actions/user';
 
 // Sample location dataset to match your dynamic logic
 const LOCATION_DATA = {
-    "Rajshahi": ["Bagmara", "Paba", "Godagari", "Tanore", "Charghat"],
-    "Dhaka": ["Mirpur", "Gulshan", "Dhanmondi", "Uttara", "Savara"],
-    "Chittagong": ["Hathazari", "Patiya", "Anwara", "Rangunia"]
+    Dhaka: ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
+    Chattogram: ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
+    Rajshahi: ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
+    Sylhet: ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
 };
 
 const EditProfileForm = ({ initialUser }) => {
