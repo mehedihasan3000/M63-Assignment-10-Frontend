@@ -94,7 +94,6 @@ export default function SideBar({ user }) {
             <Drawer>
                 <Button variant="secondary" className="lg:hidden">
                     <LayoutSideContentLeft />
-                    SideBar
                 </Button>
 
                 <Drawer.Backdrop>

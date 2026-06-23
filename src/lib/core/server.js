@@ -1,3 +1,5 @@
+// import { redirect } from "next/navigation";
+import { getUserSession } from "./session";
 import { getUserToken } from "./token";
 
 export const authHeader = async () => {
@@ -10,6 +12,12 @@ export const authHeader = async () => {
 
 export const serverMutation = async (url, donationData, method = 'POST') => {
     try {
+        const user = await getUserSession();
+        if (user?.status === 'blocked') {
+            throw new Error('You are blocked');
+            // return;
+            // redirect('/dashboard/not-access');
+        }
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
             method: method,
             headers: {
@@ -60,6 +68,10 @@ export const unprotectedServerQuery = async (url) => {
 }
 
 export const serverDelete = async (url) => {
+    const user = await getUserSession();
+    if (user?.status === 'blocked') {
+        throw new Error('You are blocked');
+    }
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
             method: 'DELETE',

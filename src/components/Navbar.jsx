@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 export default function Navbar() {
     const pathname = usePathname();
+    const router = useRouter();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -26,6 +27,7 @@ export default function Navbar() {
     const handleLogout = async () => {
         await authClient.signOut();
         //setIsLoggedIn(false);
+        router.push('/login')
     };
 
     // Helper to check if a link is active

@@ -131,7 +131,7 @@ export default function RegisterPage() {
             //console.log("Server response:", { data, error });
 
             if (data) {
-                router.push("/");
+                router.push("/dashboard");
             }
 
         } catch (err) {

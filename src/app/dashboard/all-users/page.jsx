@@ -1,9 +1,10 @@
 import { getAllUsers } from '@/lib/api/users';
 import UserManagementTable from './UserManagementTable';
 import React from 'react';
+import { requireRole } from '@/lib/core/token';
 
 const AllUsersPage = async () => {
-    
+    await requireRole("admin");
     const users = await getAllUsers();
     console.log(users);
 

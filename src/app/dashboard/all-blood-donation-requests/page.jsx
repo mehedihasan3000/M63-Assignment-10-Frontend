@@ -2,11 +2,15 @@ import { getAllDonationRequests } from '@/lib/api/donations';
 import React from 'react';
 import DonationRequestsTable from './DonationRequestsTable';
 import { getUserSession } from '@/lib/core/session';
+import { redirect } from 'next/navigation';
 
 const AllBloodDonationRequests = async () => {
     // Read historical logs directly from MongoDB on the server-side architecture
     const donationRequests = await getAllDonationRequests();
     const user = await getUserSession();
+    if (user?.role === 'donor') {
+        redirect("/dashboard");
+    }
 
     return (
         <div className="w-full max-w-7xl mx-auto p-6 space-y-6">

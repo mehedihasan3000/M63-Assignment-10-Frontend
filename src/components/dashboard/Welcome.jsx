@@ -5,7 +5,7 @@ import Link from "next/link"
 const Welcome = () => {
     const { data: session, isPending: sessionLoading } = authClient.useSession();
     return (
-        <div>
+        <div className="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8 space-y-10">
             {/* --- WELCOME BANNER DISPLAY SECTION --- */}
             <section className="bg-gradient-to-r from-rose-600 to-rose-700 rounded-2xl shadow-sm text-white p-6 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
@@ -17,7 +17,7 @@ const Welcome = () => {
                     </p>
                 </div>
                 <Link
-                    href="/dashboard/donor/create-donation-request"
+                    href="/dashboard/create-donation-request"
                     className="bg-white text-rose-700 hover:bg-rose-50 px-5 py-3 rounded-xl font-semibold shadow-sm transition-colors text-center inline-block"
                 >
                     Create Donation Request

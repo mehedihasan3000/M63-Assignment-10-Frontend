@@ -243,8 +243,8 @@ export default function DonorDashboardHome({ condition }) {
                                                         >
                                                             <Eye width={14} height={14} />
                                                         </Link>
-                                                        {
-                                                            session?.user?.role === 'admin' && <>
+                                                        
+                                                            
                                                                 <Link
                                                                     href={`/dashboard/edit-donation-request/${idString}`}
                                                                     className="p-1.5 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg transition-colors"
@@ -261,8 +261,8 @@ export default function DonorDashboardHome({ condition }) {
                                                                 >
                                                                     <TrashBin width={14} height={14} />
                                                                 </button>
-                                                            </>
-                                                        }
+                                                            
+                                                        
 
                                                     </div>
                                                 </Table.Cell>
@@ -289,6 +289,13 @@ export default function DonorDashboardHome({ condition }) {
                         )
                     }
                 </section>
+            )}
+
+            {!hasRequests && (
+                <div className='text-center'>
+                    <h2 className="text-xl font-bold text-slate-900">No Donation Requests Found</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">You have not made any donation requests yet</p>
+                </div>
             )}
 
             {/* --- CONFIRMATION ACTION DIALOG OVERLAY (MODAL) --- */}

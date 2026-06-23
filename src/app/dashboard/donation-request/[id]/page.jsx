@@ -17,7 +17,7 @@ const DonationRequestDetailsPage = async ({ params }) => {
             {/* Header Directory Path */}
             <div className="flex items-center justify-between">
                 <Link 
-                    href="/dashboard/donation-requests" 
+                    href="/dashboard/my-donation-requests" 
                     className="text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors"
                 >
                     ← Back to all requests
