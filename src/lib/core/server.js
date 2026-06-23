@@ -43,6 +43,22 @@ export const serverQuery = async (url) => {
     }
 }
 
+export const unprotectedServerQuery = async (url) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error in server query:', error);
+        throw error;
+    }
+}
+
 export const serverDelete = async (url) => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {

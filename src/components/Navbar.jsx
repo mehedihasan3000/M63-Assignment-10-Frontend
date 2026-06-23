@@ -97,6 +97,15 @@ export default function Navbar() {
                                 Funding
                             </Link>
                         )}
+                        <Link
+                            href="/search"
+                            className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200 h-full ${isActive("/search")
+                                ? "border-red-600 text-red-600"
+                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                }`}
+                        >
+                            Search
+                        </Link>
                     </div>
 
                     {/* Right Side Actions (Auth State Dependent) */}

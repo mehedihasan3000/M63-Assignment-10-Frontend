@@ -24,12 +24,10 @@ import { donationRequest } from '@/lib/actions/donationrequest';
 
 // Sample cascading geographic dataset for Bangladesh locations
 const geoData = {
-    "Dhaka": ["Mirpur", "Dhanmondi", "Uttara", "Savar", "Gulshan", "Paltan"],
-    "Chittagong": ["Hathazari", "Patiya", "Rangunia", "Anwara", "Double Mooring"],
-    "Rajshahi": ["Boalia", "Motijheel", "Paba", "Godagari", "Tanore"],
-    "Sylhet": ["Beanibazar", "Golapganj", "Fenchuganj", "Balaganj"],
-    "Khulna": ["Dumuria", "Rupa", "Phultala", "Batiaghata"],
-    "Barisal": ["Gournadi", "Babuganj", "Bakerganj", "Wazirpur"]
+    'Dhaka': ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
+    'Chattogram': ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
+    'Rajshahi': ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
+    'Sylhet': ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
 };
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -108,7 +106,7 @@ export default function CreateDonationRequestPage() {
             });
 
             // Reset contextual fields
-            if (false) {
+            if (res) {
                 setFormData({
                     recipientName: '',
                     recipientDistrict: '',

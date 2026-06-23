@@ -29,7 +29,7 @@ const UserManagementTable = ({ initialUsers = [] }) => {
             if (res) {
                 // Optimistically or real-time state manipulation to eliminate full reload latency
                 setUsers((prevUsers) =>
-                    prevUsers.map((user) => {
+                    prevUsers?.map((user) => {
                         const currentId = user._id?.$oid || user._id;
                         return currentId === userId ? { ...user, ...updatePayload } : user;
                     })
@@ -43,7 +43,7 @@ const UserManagementTable = ({ initialUsers = [] }) => {
     };
 
     // Filter array mapping computation
-    const filteredUsers = users.filter((user) => {
+    const filteredUsers = users?.filter((user) => {
         if (statusFilter === 'all') return true;
         return user.status === statusFilter;
     });
@@ -99,7 +99,7 @@ const UserManagementTable = ({ initialUsers = [] }) => {
                                     </Table.Cell>
                                 </Table.Row>
                             ) : (
-                                filteredUsers.map((user) => {
+                                filteredUsers?.map((user) => {
                                     // Safely resolves both string IDs and MongoDB $oid objects to standard strings
                                     const userId = user._id?.$oid || user._id;
                                     return (

@@ -141,7 +141,7 @@ export default function DonorDashboardHome({ condition }) {
                         <Table.ScrollContainer>
                             <Table.Content aria-label="Donor configuration historical data logs table">
                                 <Table.Header>
-                                    <Table.Column>Recipient Name</Table.Column>
+                                    <Table.Column isRowHeader>Recipient Name</Table.Column>
                                     <Table.Column>Recipient Location</Table.Column>
                                     <Table.Column>Schedule Parameters</Table.Column>
                                     <Table.Column>Blood Group</Table.Column>
