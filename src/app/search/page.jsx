@@ -2,15 +2,10 @@
 
 import React, { useState } from 'react';
 import { Select, Label, ListBox } from "@heroui/react";
+import { geoData } from "@/lib/geo-data";
 
 // Static geographic reference matrix matching your database schema
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-const geoData = {
-    'Dhaka': ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
-    'Chattogram': ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
-    'Rajshahi': ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
-    'Sylhet': ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
-};
 
 const BloodDonorSearchPage = () => {
     const [bloodGroup, setBloodGroup] = useState('');

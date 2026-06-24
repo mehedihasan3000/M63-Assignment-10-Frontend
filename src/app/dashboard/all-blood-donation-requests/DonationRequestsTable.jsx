@@ -198,8 +198,7 @@ const DonationRequestsTable = ({ initialRequests = [], user }) => {
                                                 >
                                                     <Eye width={14} height={14} />
                                                 </Link>
-                                                { user?.role === 'admin' || user?.role === 'volunteer' && <>
-                                                    <Link
+                                                <Link
                                                         href={`/dashboard/edit-donation-request/${idString}`}
                                                         className="p-1.5 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg transition-colors"
                                                         title="Modify Registry Fields"
@@ -215,8 +214,6 @@ const DonationRequestsTable = ({ initialRequests = [], user }) => {
                                                     >
                                                         <TrashBin width={14} height={14} />
                                                     </button>
-                                                </>
-                                                }
 
                                             </div>
                                         </Table.Cell>

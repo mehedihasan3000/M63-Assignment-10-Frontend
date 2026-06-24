@@ -5,13 +5,9 @@ import { Form, Fieldset, TextField, Label, Input, FieldError, Description, Butto
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { geoData } from "@/lib/geo-data";
 
-const LOCATION_DATA = {
-    Dhaka: ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
-    Chattogram: ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
-    Rajshahi: ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
-    Sylhet: ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
-};
+const LOCATION_DATA = geoData;
 
 export default function RegisterPage() {
     // Controlled form state tracking variables

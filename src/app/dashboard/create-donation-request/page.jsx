@@ -21,14 +21,7 @@ import {
 // Gravity UI Icons setup
 import { Shield, CircleCheck, TriangleExclamation, Calendar as CalendarIcon, Clock } from '@gravity-ui/icons';
 import { donationRequest } from '@/lib/actions/donationrequest';
-
-// Sample cascading geographic dataset for Bangladesh locations
-const geoData = {
-    'Dhaka': ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
-    'Chattogram': ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
-    'Rajshahi': ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
-    'Sylhet': ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
-};
+import { geoData } from "@/lib/geo-data";
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 

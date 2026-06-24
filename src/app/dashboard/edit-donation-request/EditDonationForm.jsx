@@ -3,15 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateDonationRequests } from '@/lib/actions/donationrequest';
+import { geoData } from "@/lib/geo-data";
 
-// Mock values - Replace imports matching your environment configuration profiles
+
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-const geoData = {
-    Dhaka: ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
-    Chattogram: ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
-    Rajshahi: ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
-    Sylhet: ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
-};
 
 const EditDonationForm = ({ initialData }) => {
     const router = useRouter();
