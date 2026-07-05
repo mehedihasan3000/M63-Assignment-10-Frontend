@@ -4,14 +4,9 @@ import React, { useState } from 'react';
 import { Form, Fieldset, TextField, Label, Input, FieldError, Button } from '@heroui/react';
 import { Pencil, FloppyDisk, ArrowRotateLeft } from '@gravity-ui/icons';
 import { updateUser } from '@/lib/actions/user';
+import { geoData } from '@/lib/geo-data';
 
-// Sample location dataset to match your dynamic logic
-const LOCATION_DATA = {
-    Dhaka: ["Mirpur", "Dhanmondi", "Gulshan", "Savar", "Uttara"],
-    Chattogram: ["Hathazari", "Mirsharai", "Raozan", "Sandwip", "Sitakunda"],
-    Rajshahi: ["Boalia", "Paba", "Bagmara", "Godagari", "Puthia"],
-    Sylhet: ["Beanibazar", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur"],
-};
+const LOCATION_DATA = geoData;
 
 const EditProfileForm = ({ initialUser }) => {
     // State to handle edit toggle mode
@@ -102,7 +97,7 @@ const EditProfileForm = ({ initialUser }) => {
 
         try {
             // Change path according to your actual Express endpoint setup
-            const res = await updateUser(initialUser.id, updatedProfile)
+            const res = await updateUser(initialUser?._id, updatedProfile)
             
             if (res) {
                 // Successfully stored changes, flip back view mode status
