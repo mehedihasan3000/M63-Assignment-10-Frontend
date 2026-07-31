@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { Bars, Xmark } from "@gravity-ui/icons";
 
 export default function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const menuRef = useRef(null);
 
     const { data: session, isPending, error } = authClient.useSession();
     //console.log(session?.user)
@@ -33,11 +36,14 @@ export default function Navbar() {
     // Helper to check if a link is active
     const isActive = (path) => pathname === path;
 
-    // Close dropdown if clicked outside
+    // Close dropdown/menu if clicked outside
     useEffect(() => {
         function handleClickOutside(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
+            }
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -50,7 +56,23 @@ export default function Navbar() {
                 <div className="flex justify-between h-16 items-center">
 
                     {/* Platform Logo / Brand */}
-                    <div className="flex-shrink-0">
+                    <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                        {/* Mobile menu toggle */}
+                        <button
+                            type="button"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="sm:hidden inline-flex items-center justify-center p-2 -ml-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
+                            aria-expanded={isMenuOpen}
+                            aria-controls="mobile-menu"
+                            aria-label="Toggle navigation menu"
+                        >
+                            {isMenuOpen ? (
+                                <Xmark className="size-6" />
+                            ) : (
+                                <Bars className="size-6" />
+                            )}
+                        </button>
+
                         <Link href="/" className="flex items-center gap-2 font-bold text-gray-900">
                             <svg
                                 className="w-6 h-6 text-red-600"
@@ -60,7 +82,7 @@ export default function Navbar() {
                             >
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
-                            <span className="text-xl tracking-wide">
+                            <span className="text-lg sm:text-xl tracking-wide">
                                 Blood<span className="text-red-600">Connect</span>
                             </span>
                         </Link>
@@ -186,6 +208,58 @@ export default function Navbar() {
                         )}
                     </div>
 
+                </div>
+
+                {/* Mobile Menu */}
+                <div
+                    id="mobile-menu"
+                    ref={menuRef}
+                    className={`sm:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${isMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0 invisible"}`}
+                >
+                    <div className="py-2 space-y-1 border-t border-gray-200">
+                        <Link
+                            href="/"
+                            onClick={() => setIsMenuOpen(false)}
+                            className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${isActive("/")
+                                ? "bg-red-50 text-red-600"
+                                : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                                }`}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href="/requests"
+                            onClick={() => setIsMenuOpen(false)}
+                            className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${isActive("/requests")
+                                ? "bg-red-50 text-red-600"
+                                : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                                }`}
+                        >
+                            Donation Requests
+                        </Link>
+                        {isLogged && (
+                            <Link
+                                href="/funding"
+                                onClick={() => setIsMenuOpen(false)}
+                                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${isActive("/funding")
+                                    ? "bg-red-50 text-red-600"
+                                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                                    }`}
+                            >
+                                Funding
+                            </Link>
+                        )}
+                        <Link
+                            href="/search"
+                            onClick={() => setIsMenuOpen(false)}
+                            className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${isActive("/search")
+                                ? "bg-red-50 text-red-600"
+                                : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                                }`}
+                        >
+                            Search
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>
