@@ -25,11 +25,20 @@ const ContactSection = () => {
 
         setIsSubmitting(true);
         
-        // Mocking API Submission delay
+        
+        // API Submission delay
         try {
+            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
             // Replace with your real API route if needed: await fetch('/api/contact', ...)
             await new Promise(resolve => setTimeout(resolve, 1000));
             setSubmitted(true);
+            //console.log("Form Data Submitted:", formData);
             setFormData({ name: '', email: '', message: '' });
         } catch (error) {
             console.error("Form submission breakdown:", error);
